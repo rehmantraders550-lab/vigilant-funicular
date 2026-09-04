@@ -1,0 +1,6 @@
+vendor/
+stages/
+assets/*/source/
+*.pyc
+__pycache__/
+.env
