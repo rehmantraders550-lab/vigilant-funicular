@@ -1,46 +1,95 @@
-version: 1
+version: 2
 name: hdc-visual-pipeline
-purpose: Hadi Digital Craft Engineered Tactility visual refinement
+architecture: federated-file-contract
+purpose: Hadi Digital Craft Engineered Tactility visual processing
 
 repositories:
-  dream-textures:
-    url: https://github.com/carson-katri/dream-textures.git
-    commit: c2622a8a9f1ae6b790cfe1d2571f814b126811b4
-    role: blender_material_generation
-    feeds: [comfyui]
   comfyui:
     url: https://github.com/Comfy-Org/ComfyUI.git
-    commit: e80c1570b6b44a2557d5d8e341e05782d18c9bbb
-    role: orchestration_backbone
-    feeds: [birefnet, ic-light, realesrgan]
+    ref: v0.34.0
+    commit: 12d5279438bfefc058a269eae805ceab6047777f
+    runtime: isolated-python
+    role: visual_workspace_compare_crop_composite
+    status: pinned-stable-release
+    mandatory: true
+    notes:
+      - Do not use ComfyUI core BiRefNet as the production masking path until current alpha/precision issues are retested.
   birefnet:
     url: https://github.com/ZhengPeng7/BiRefNet.git
+    ref: ebcc0bc8ec7fe919cec829f2dea656b3078acddc
     commit: ebcc0bc8ec7fe919cec829f2dea656b3078acddc
-    role: high_resolution_segmentation
-    feeds: [ic-light]
+    runtime: isolated-python
+    role: high_resolution_segmentation_matting
+    status: standalone
+    mandatory: false
+    preferred_models:
+      general: BiRefNet_dynamic
+      fine_alpha: BiRefNet_HR-matting
   ic-light:
     url: https://github.com/lllyasviel/IC-Light.git
+    ref: bcf3f29ca85be8a4686215f477b546f5030be8b7
     commit: bcf3f29ca85be8a4686215f477b546f5030be8b7
-    role: relighting_material_response
-    feeds: [realesrgan]
+    runtime: isolated-python-3.10
+    role: controlled_relighting
+    status: optional
+    mandatory: false
+    commercial_rule: external_birefnet_mask_required
   realesrgan:
     url: https://github.com/xinntao/Real-ESRGAN.git
+    ref: a4abfb2979a7bbff3f69f58f58ae324608821e27
     commit: a4abfb2979a7bbff3f69f58f58ae324608821e27
-    role: final_restoration_upscale
-    feeds: []
+    runtime: isolated-python
+    role: conditional_restoration_upscale
+    status: optional-legacy-stack
+    mandatory: false
+    preferred_model: RealESRGAN_x2plus
+    bypass_if:
+      - source already meets target pixel dimensions
+      - fine print texture changes materially
+      - registration edges are hallucinated or oversharpened
+  dream-textures:
+    url: https://github.com/carson-katri/dream-textures.git
+    ref: 0.4.1
+    commit: c2622a8a9f1ae6b790cfe1d2571f814b126811b4
+    runtime: blender-addon
+    role: optional_material_texture_exploration
+    status: optional-blender-branch
+    mandatory: false
 
-flow:
-  primary:
-    - comfyui
-    - birefnet
-    - ic-light
-    - realesrgan
+interchange:
+  working_format: PNG
+  color_space: sRGB
+  alpha: straight
+  overwrite_source: false
+  metadata_sidecar: asset.json
+
+stages:
+  ingest:
+    output: stages/00_ingest
+  mask:
+    engine: birefnet
+    input_from: ingest
+    output: stages/10_mask
+  relight:
+    engine: ic-light
+    input_from: [ingest, mask]
+    output: stages/20_relight
+  upscale:
+    engine: realesrgan
+    input_from: [ingest, relight]
+    output: stages/30_upscale
+  compare_export:
+    engine: comfyui
+    input_from: [ingest, mask, relight, upscale]
+    output: stages/90_approved
   material_branch:
-    - dream-textures
-    - comfyui
+    engine: dream-textures
+    output: stages/05_material
+    feeds: [compare_export]
 
 governance:
   visual_doctrine: Engineered Tactility
-  architecture_authority: HDC validated website handoff
+  architecture_authority: HDC refined editorial implementation blueprint + validated construction handoff
   generated_assets_are_proof: false
   selected_work_requires_verified_real_photography: true
+  proof_source_must_remain_immutable: true
