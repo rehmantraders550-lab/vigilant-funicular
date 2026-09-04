@@ -64,7 +64,7 @@ Use this as the governing context for Gemini image generation and Flow/Veo. Do n
 ### Physical realism rules
 
 - UV DTF: raised detail must be subtle and believable, not thick plastic extrusion or vinyl sticker.
-- DTF: textile weave remains visible; the transfer sits on/in relation to fibre without melting the weave.
+- DTF: the already-approved DTF service visual remains valid, but no additional textile-led imagery is required in the remaining workflow. Where DTF appears, textile weave and transfer physics must stay believable.
 - Offset: halftone, registration, sheet texture and colour boundaries must look printable rather than digitally painted.
 - Glass: transparent/specular behaviour must read clearly without impossible reflection.
 - Metal: brushed/specular direction must stay coherent.
@@ -183,7 +183,7 @@ The image implies universal metal compatibility, reads like a sticker, contains 
 ## 11. S04 — Surface Laboratory matched set
 
 **Assigned engine:** Gemini image generation  
-**Production rule:** Generate the five surfaces as a controlled series. Lock camera family, approximate magnification, graphic motif size, light direction and background treatment across the set.
+**Production rule:** The Surface Laboratory is a four-surface controlled series: Glass, Metal, Acrylic, and Paper/Board. Textile is excluded. Lock camera family, approximate magnification, graphic motif size, light direction and background treatment across the set.
 
 ### Series master instruction
 
@@ -198,8 +198,6 @@ The image implies universal metal compatibility, reads like a sticker, contains 
 ### Acrylic
 > Smoked acrylic plane with a small clean decorative transfer. Show polished acrylic edge/refraction and controlled surface reflection without turning the object into a retail product.
 
-### Textile
-> Dense black cotton textile with one small DTF transfer. Fibre weave and print boundary remain sharp and physically credible.
 
 ### Paper / board
 > Warm-ivory uncoated or lightly coated paperboard with a restrained offset-printed geometric detail. Show paper grain, ink interaction and exact colour registration.
@@ -214,9 +212,6 @@ Reject the whole set if image-to-image lighting, scale or camera perspective dri
 **Assigned engine:** Gemini image generation only for conceptual placeholders; real HDC imagery has priority.
 
 Every generated output must be internally tagged **generated application study — not client work**.
-
-### Apparel & Textile
-> Unbranded commercial textile application study shown through a tight crop of a printed uniform/apparel surface. Print edge, fibre and finish dominate. No model, lifestyle scene or ecommerce pose. [Apply Shared Visual Specification]
 
 ### Products & Objects
 > Unbranded hard-surface object application study using a simple bottle, tumbler, acrylic or neutral object form. Print treatment is abstract and non-readable; frame material, edge and surface response rather than the whole retail object. [Apply Shared Visual Specification]
@@ -239,8 +234,6 @@ Every generated output must be internally tagged **generated application study �
 ### Raised UV detail
 > Ultra-detailed macro photograph of a subtle raised glossy print detail on a dark matte hard substrate. One glancing neutral highlight reveals the elevation and exact edge. Keep key edge fully in focus; shallow depth of field only beyond the inspection area. [Apply Shared Visual Specification]
 
-### Textile fibre
-> Ultra-detailed macro of DTF print meeting black textile fibre. Preserve individual fibre structure and a physically coherent print boundary. [Apply Shared Visual Specification]
 
 ### Offset registration
 > Macro paperboard specimen showing exact alignment of two restrained colour fields, subtle halftone structure, paper texture and a small non-readable registration geometry. [Apply Shared Visual Specification]
@@ -357,14 +350,14 @@ Geometry changes between frames, the transfer grows/shrinks, lighting becomes RG
 ## 25. Dream Textures assignment
 
 Dream Textures is **not** a general HDC image generator. Use it only when a Blender-based substrate/material study materially improves a scene, such as:
-- seamless paper/fibre surface;
+- seamless paper/board surface;
 - matte painted panel texture;
 - subtle brushed-metal roughness study;
 - material reference for a 3D mock surface;
 - texture projection for a controlled Blender concept.
 
 ### Dream Textures material prompt template
-> Seamless physically plausible [SUBSTRATE] material texture for a premium commercial-print studio study. Real-world microstructure only: [paper fibre / subtle brushed metal grain / fine matte coating / restrained stone porosity / dark textile weave]. Even illumination, orthographic/material-scan character, no object shadows, no printed words, logos, scratches that form symbols, stains, decorative patterns or cinematic lighting. The texture must tile cleanly and support close macro rendering without obvious repetition.
+> Seamless physically plausible [SUBSTRATE] material texture for a premium commercial-print studio study. Real-world microstructure only: [paper fibre / subtle brushed metal grain / fine matte coating / restrained stone porosity / acrylic micro-surface]. Even illumination, orthographic/material-scan character, no object shadows, no printed words, logos, scratches that form symbols, stains, decorative patterns or cinematic lighting. The texture must tile cleanly and support close macro rendering without obvious repetition.
 
 ### HDC rule
 Dream Textures output is a **generated material study**, never real production proof.
@@ -378,7 +371,7 @@ Dream Textures output is a **generated material study**, never real production p
 BiRefNet does not need an aesthetic prompt. It needs a segmentation target specification.
 
 ### Mask brief
-> Target foreground: [EXACT OBJECT / PRINTED SPECIMEN]. Preserve all true object edges, transparent/semtransparent edge behaviour where possible, fine fibres if they materially affect the print boundary, and holes/cutouts. Exclude background, cast shadow unless physically inseparable, props and reflections that do not belong to the object. Output mask at exactly source pixel dimensions plus an RGBA foreground. Do not resize or crop.
+> Target foreground: [EXACT OBJECT / PRINTED SPECIMEN]. Preserve all true object edges, transparent/semtransparent edge behaviour where possible, fine edge detail that materially affects the print boundary, and holes/cutouts. Exclude background, cast shadow unless physically inseparable, props and reflections that do not belong to the object. Output mask at exactly source pixel dimensions plus an RGBA foreground. Do not resize or crop.
 
 ### Preferred model selection
 - general robust object extraction: `BiRefNet_dynamic`;
@@ -387,7 +380,6 @@ BiRefNet does not need an aesthetic prompt. It needs a segmentation target speci
 ### Acceptance gate
 Inspect at 100% and 200%:
 - no clipped transfer edge;
-- no missing textile fibres that define the boundary;
 - no halo;
 - no changed dimensions;
 - no accidental inclusion of background text/logo.
@@ -406,8 +398,6 @@ Use only when lighting is the problem in an otherwise approved composition. Feed
 ### HDC relighting prompt — paper/offset
 > Soft neutral overhead source with a restrained low-angle side light that reveals real paper grain, printed colour boundary and sheet edge. Maintain natural paper colour and print density. No glossy conversion, vignette spectacle or dramatic colour cast.
 
-### HDC relighting prompt — textile
-> Soft neutral overhead illumination plus a subtle side light grazing across the actual textile weave and print boundary. Preserve fibre structure, black level and transfer colour. No fashion lighting, coloured rim light or artificial sheen.
 
 ### Reject if
 IC-Light changes geometry, invents gloss, shifts brand-relevant colours materially, hides registration, or turns matte material into polished material.
@@ -429,7 +419,6 @@ No aesthetic prompt. This is a conditional restoration stage.
 
 ### Mandatory comparison
 At 100% compare before/after on:
-- textile weave;
 - UV-DTF edge;
 - halftone/registration marks;
 - paper fibre;
@@ -466,7 +455,7 @@ Never hide a generative replacement inside an apparently corrective workflow.
 Desktop hero: preserve left text safe zone.  
 Mobile hero: independently composed source preferred.  
 Macro specimens: key edge must remain inside crop and fully readable.  
-Surface Lab: maintain matched scale across all five crops.
+Surface Lab: maintain matched scale across all four approved crops (Glass, Metal, Acrylic, Paper/Board).
 
 ---
 
@@ -482,7 +471,7 @@ Surface Lab: maintain matched scale across all five crops.
 > 5. `CLAIM / PROOF RISK` — one precise sentence;
 > 6. if not PASS, one replacement generation/edit prompt that corrects only the identified defects.
 >
-> Automatically reject: legible fake text/logos, machinery-sales framing, generic promotional-gift styling, cyberpunk/neon, impossible material response, exaggerated UV relief, melted textile fibres, floating print, invented client context, fabricated measurements/certifications, or a crop where the physical evidence is unreadable at website size. Do not redesign the website or change HDC architecture.
+> Automatically reject: legible fake text/logos, machinery-sales framing, generic promotional-gift styling, cyberpunk/neon, impossible material response, exaggerated UV relief, floating print, invented client context, fabricated measurements/certifications, or a crop where the physical evidence is unreadable at website size. Do not redesign the website or change HDC architecture.
 
 ---
 
@@ -494,21 +483,18 @@ Surface Lab: maintain matched scale across all five crops.
 
 # PART I — PRODUCTION PROTOCOL
 
-## 32. Generation order
+## 32. Generation order — current project state
 
-1. S01 desktop hero still.
-2. Review.
-3. S01 mobile hero still.
-4. Review as pair.
-5. Generate Flow/Veo desktop hero loop from approved still.
-6. Generate mobile video only after desktop video passes.
-7. S03 route visuals: DTF -> UV DTF -> Offset -> Large Format.
-8. Surface Lab five-image series.
-9. S06 macro specimens.
-10. S05 application studies only where approved real media is absent.
-11. S07 conceptual reference only if real environment asset is still missing.
-12. S08/S09 only if real production evidence is insufficient.
-13. Stop at S10; use real HDC work only.
+The following are complete and should not be regenerated unless specifically rejected: Hero desktop/mobile, hero video, S03 service visuals, S04 Surface Laboratory, and S06 specimens. The DTF service visual remains valid, but textile is excluded from further visual expansion.
+
+Remaining order:
+
+1. S05 Application Portfolio — Products & Objects, Packaging & Paper, Brand Environments, Events & Personalisation only. No Apparel/Textile category.
+2. S07 Large Format / Brand Environment — real HDC media preferred; conceptual reference only if a real environment asset is unavailable.
+3. S08 Process — real HDC process photography first; conceptual filler only if required.
+4. S09 Quality / Production Control — real production evidence preferred; otherwise controlled macro studies.
+5. S10 Selected Work — verified real HDC photography only; no synthetic generation.
+6. Final asset QA, metadata, web derivatives and website integration.
 
 ---
 
@@ -557,3 +543,18 @@ An asset may enter the HDC production website only when:
 - any BiRefNet/IC-Light/Real-ESRGAN processing has been visually compared against the source;
 - filename and metadata follow the HDC system;
 - it supports the locked page architecture rather than forcing a redesign.
+
+---
+
+## 36. Textile exclusion — locked September 2026
+
+For the remaining HDC website imagery workflow:
+
+- Do not generate a Textile Surface Lab specimen.
+- Do not create an Apparel & Textile application category.
+- Do not create additional textile macro specimens.
+- Do not use textile as a Dream Textures material branch.
+- The already-approved DTF service visual remains part of the DTF service representation because DTF is a real HDC service.
+- Textile exclusion applies to **additional visual expansion**, not to deleting DTF from HDC's service architecture.
+
+The remaining Surface Laboratory set is: **Glass / Metal / Acrylic / Paper & Board**.
