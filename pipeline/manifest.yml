@@ -1,0 +1,46 @@
+version: 1
+name: hdc-visual-pipeline
+purpose: Hadi Digital Craft Engineered Tactility visual refinement
+
+repositories:
+  dream-textures:
+    url: https://github.com/carson-katri/dream-textures.git
+    commit: c2622a8a9f1ae6b790cfe1d2571f814b126811b4
+    role: blender_material_generation
+    feeds: [comfyui]
+  comfyui:
+    url: https://github.com/Comfy-Org/ComfyUI.git
+    commit: e80c1570b6b44a2557d5d8e341e05782d18c9bbb
+    role: orchestration_backbone
+    feeds: [birefnet, ic-light, realesrgan]
+  birefnet:
+    url: https://github.com/ZhengPeng7/BiRefNet.git
+    commit: ebcc0bc8ec7fe919cec829f2dea656b3078acddc
+    role: high_resolution_segmentation
+    feeds: [ic-light]
+  ic-light:
+    url: https://github.com/lllyasviel/IC-Light.git
+    commit: bcf3f29ca85be8a4686215f477b546f5030be8b7
+    role: relighting_material_response
+    feeds: [realesrgan]
+  realesrgan:
+    url: https://github.com/xinntao/Real-ESRGAN.git
+    commit: a4abfb2979a7bbff3f69f58f58ae324608821e27
+    role: final_restoration_upscale
+    feeds: []
+
+flow:
+  primary:
+    - comfyui
+    - birefnet
+    - ic-light
+    - realesrgan
+  material_branch:
+    - dream-textures
+    - comfyui
+
+governance:
+  visual_doctrine: Engineered Tactility
+  architecture_authority: HDC validated website handoff
+  generated_assets_are_proof: false
+  selected_work_requires_verified_real_photography: true
